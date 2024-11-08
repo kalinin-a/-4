@@ -1,0 +1,111 @@
+1. HTML
+Создайте файл index.html с содержимым:
+html<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Слайдер изображений</title>
+</head>
+<body>
+    <div class="slider-container">
+        <button id="prev" class="nav-button">Назад</button>
+        <div class="image-display">
+            <img id="slider-image" src="image1.jpg" alt="Изображение слайдера">
+            <div class="image-counter" id="image-counter">Изображение 1 из 5</div>
+        </div>
+        <button id="next" class="nav-button">Вперед</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+2. CSS
+Создайте файл styles.css с содержимым:
+cssbody {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-display {
+    position: relative;
+    text-align: center;
+}
+
+.image-display img {
+    max-width: 500px;
+    max-height: 300px;
+    border-radius: 10px;
+}
+
+.nav-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
+.image-counter {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+
+3. JavaScript
+Создайте файл script.js с содержимым:
+javascriptconst images = [
+    'image1.jpg',
+    'image2.jpg',
+    'image3.jpg',
+    'image4.jpg',
+    'image5.jpg',
+];
+
+let currentIndex = 0;
+
+const imageElement = document.getElementById('slider-image');
+const imageCounter = document.getElementById('image-counter');
+
+const updateImageDisplay = () => {
+    imageElement.src = images[currentIndex];
+    imageCounter.textContent = `Изображение ${currentIndex + 1} из ${images.length}`;
+};
+
+document.getElementById('next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length; // Зацикливание
+    updateImageDisplay();
+});
+
+document.getElementById('prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length; // Зацикливание
+    updateImageDisplay();
+});
+
+// Инициализация
+updateImageDisplay();
